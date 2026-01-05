@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Météo Paris - Paris en ligne</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<header class="main-header">
+    <p> {{ username }} Crédit : {{ credit }} Serbananes</p>
+</header>
+<div class="header-space"></div>
+
+<h1>Bienvenue sur BetTheWeather - Pariez sur la météo !</h1>
+
+<section class="page-cyberfolio">
+    <div class="page-info">
+        <h3>Comment ça fonctionne ?</h3>
+        <p>
+            Ici, vous pouvez parier sur la météo à venir dans différentes villes. Chaque pari indique une date et un événement météorologique précis.
+            Vous choisissez le montant que vous souhaitez miser et sélectionnez Oui ou Non. Plus le montant misé est élevé, plus vos gains potentiels sont importants !
+        </p>
+    </div>
+</section>
+
+<section class="page-cyberfolio">
+{% for pari in paris %}
+<div class="paris-card">
+    <p>Va t-il pleuvoir le <strong>{{ pari[1] }}</strong> à  {{ pari[2] }} à 13h?</p>
+    <form class="bet-form" method="post" action="{{ url_for('home') }}">
+        <input type="hidden" name="paris_id" value="{{ pari[0] }}">
+        <input type="number" name="amount" placeholder="Montant (€)" min="1" value="{{ pari[3] or '' }}" required>
+        <div class="bet-buttons">
+            <button type="submit" name="choice" value="oui" {% if pari[4] != 0 %}disabled{% endif %}>Oui</button>
+            <button type="submit" name="choice" value="non" {% if pari[4] != 0 %}disabled{% endif %}>Non</button>
+        </div>
+        {% if pari[4] == 1 %}
+        <p>Vous avez parié {{ pari [3]}} Serbananes sur le OUI</p>
+        {% elif pari[4] == 2 %}
+        <p>Vous avez parié {{ pari [3] }} Serbananes sur le NON</p>
+        {% endif %}
+    </form>
+</div>
+{% endfor %}
+</section>
+
+<section class="page-cyberfolio">
+    <div class="page-info">
+        <h3>Pourquoi parier sur la météo ?</h3>
+        <p>
+            Parier sur la météo permet de tester vos connaissances sur les phénomènes climatiques tout en vous amusant.
+            Suivez vos paris, découvrez si vos prédictions étaient correctes et essayez d’améliorer vos chances chaque semaine.
+        </p>
+    </div>
+</section>
+
+</body>
+</html>

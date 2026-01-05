@@ -1,0 +1,137 @@
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 20px;
+    background-color: #d1eff7;
+}
+
+h1 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+h2,h3,h5,h6 {
+    color: #555;
+    text-align: center;
+    margin-bottom: 20px; 
+}
+
+p {
+    color: #444;
+    font-size: 18px;
+}
+
+/* HEADER */
+.main-header {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    background-color: #0077cc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+
+    z-index: 100;
+}
+
+.main-header button {
+    color: white;
+    background: none;
+    border: none;
+    margin: 0 10px;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.main-header button:hover {
+    text-decoration: underline;
+}
+
+.header-space {
+    height: 60px;
+}
+
+/* PAGE CYBERFOLIO */
+.page-cyberfolio {
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    padding: 20px;
+    margin: 25px auto;
+    max-width: 1000px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+    flex-wrap: wrap;
+}
+
+.page-info {
+    width: 100%;
+}
+
+/* PARIS GRID */
+.paris-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: flex-start;
+}
+
+.paris-card {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 5px;
+    width: calc(25% - 20px);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
+
+.paris-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
+
+.bet-form input[type="number"] {
+    width: 80%;
+    padding: 8px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.bet-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.bet-buttons button {
+    padding: 6px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #0077cc;
+    color: white;
+}
+
+.bet-buttons button:hover {
+    background-color: #005fa3;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1200px) {
+    .paris-card {
+        width: calc(33.33% - 20px);
+    }
+}
+
+@media (max-width: 900px) {
+    .paris-card {
+        width: calc(50% - 20px);
+    }
+}
+
+@media (max-width: 600px) {
+    .paris-card {
+        width: 100%;
+    }
+}
