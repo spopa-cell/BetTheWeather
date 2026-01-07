@@ -28,7 +28,7 @@
 <section class="page-cyberfolio">
 {% for pari in paris %}
 <div class="paris-card">
-    <p>Va t-il pleuvoir le <strong>{{ pari[1] }}</strong> à  {{ pari[2] }} à 13h?</p>
+    <p>Va t-il pleuvoir le <strong>{{ pari[1] }}</strong> à  {{ pari[2] }} ?</p>
     <form class="bet-form" method="post" action="{{ url_for('home') }}">
         <input type="hidden" name="paris_id" value="{{ pari[0] }}">
         <input type="number" name="amount" placeholder="Montant (€)" min="1" value="{{ pari[3] or '' }}" required>

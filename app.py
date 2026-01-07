@@ -99,19 +99,42 @@ def home():
     if request.method == "POST":
         paris_id = request.form.get("paris_id")
         choice = request.form.get("choice")
-        valeur = request.form.get("amount")
+        valeur = int(request.form.get("amount"))
 
         status = 1 if choice == "oui" else 2
 
         conn = sqlite3.connect("database.db")
         c = conn.cursor()
-        c.execute("""
-            UPDATE paris
-            SET status = ?, valeur = ?
-            WHERE id = ? AND user_id = ?
-        """, (status, valeur, paris_id, user_id))
-        conn.commit()
+
+        # Vérifier le pari existant
+        c.execute("SELECT status, valeur FROM paris WHERE id = ? AND user_id = ?", (paris_id, user_id))
+        result = c.fetchone()
+        if result:
+            old_status, old_valeur = result
+
+            if old_status == 0:  # jamais parié → on peut retirer le montant
+                # Retirer la mise
+                c.execute("SELECT montant FROM users WHERE id = ?", (user_id,))
+                current_money = c.fetchone()[0]
+
+                if valeur > current_money:
+                    flash("Vous n'avez pas assez de crédits pour ce pari.", "danger")
+                else:
+                    new_money = current_money - valeur
+                    c.execute("UPDATE users SET montant = ? WHERE id = ?", (new_money, user_id))
+
+                    # Mettre à jour le pari
+                    c.execute("""
+                        UPDATE paris
+                        SET status = ?, valeur = ?
+                        WHERE id = ? AND user_id = ?
+                    """, (status, valeur, paris_id, user_id))
+                    conn.commit()
+            else:
+                flash("Vous avez déjà parié sur ce pari.", "warning")
+
         conn.close()
+
 
     paris_list = get_paris_for_user(user_id)
     user = get_user_by_id(user_id)
