@@ -21,7 +21,11 @@ def get_user_by_id(user_id):
     user = c.fetchone()
     conn.close()
     return user
-
+def addition(a, b):
+    return a + b
+ 
+def test_addition():
+    assert addition(2, 3) == 5
 # Page login
 @app.route("/login", methods=["GET", "POST"])
 def login():
