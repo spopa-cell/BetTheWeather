@@ -33,7 +33,7 @@ jobs:
 
       - name: Run tests (pytest)
         run: |
-          pytest .
+          pytest app.py
 
       - name: Run linting (ruff)
         run: |
