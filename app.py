@@ -6,7 +6,7 @@ app = Flask(__name__)
 app.secret_key = "meteo_secret_key"
 bcrypt = Bcrypt(app)
 
-
+assert 1==1
 def get_user(username):
     conn = sqlite3.connect("database.db")
     c = conn.cursor()
