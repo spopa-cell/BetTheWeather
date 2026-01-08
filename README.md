@@ -58,6 +58,7 @@ Les paris sont associés à l’utilisateur via user_id pour éviter les manipul
 Sessions sécurisées avec app.secret_key.
 
 - API utilisée -
+
 OpenWeatherMap API
 Pour récupérer la météo actuelle d’une ville.
 Vérifie la présence de pluie (rain).
