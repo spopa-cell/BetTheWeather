@@ -6,7 +6,6 @@ app = Flask(__name__)
 app.secret_key = "meteo_secret_key"
 bcrypt = Bcrypt(app)
 
-assert 1==1
 def get_user(username):
     conn = sqlite3.connect("database.db")
     c = conn.cursor()
@@ -91,6 +90,7 @@ def get_paris_for_user(user_id):
 # Page protégée : home
 @app.route("/", methods=["GET", "POST"])
 def home():
+    assert 1==1
     if "user" not in session:
         return redirect(url_for("login"))
 
