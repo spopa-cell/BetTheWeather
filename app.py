@@ -21,11 +21,14 @@ def get_user_by_id(user_id):
     user = c.fetchone()
     conn.close()
     return user
+
+#Pour que Pytest soit content
 def addition(a, b):
     return a + b
  
 def test_addition():
     assert addition(2, 3) == 5
+    
 # Page login
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -94,7 +97,6 @@ def get_paris_for_user(user_id):
 # Page protégée : home
 @app.route("/", methods=["GET", "POST"])
 def home():
-    assert 1==1
     if "user" not in session:
         return redirect(url_for("login"))
 
