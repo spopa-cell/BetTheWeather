@@ -64,5 +64,48 @@ Pour récupérer la météo actuelle d’une ville.
 Vérifie la présence de pluie (rain).
 (Permet de déterminer si un pari est gagné ou perdu.)
 
+# Docker Setup
+Ce projet utilise Docker pour faciliter l'exécution de l'application dans un environnement isolé et cohérent. Voici une description des différentes étapes de configuration et de ce que chaque partie du fichier `Dockerfile` fait.
 
+## Dockerfile
+
+1. **Base Image**  
+   Le projet utilise l'image `python:3.12-alpine`, une image légère et optimisée pour exécuter des applications Python dans un conteneur.
+
+2. **Préparation de l'environnement Python**  
+   Les variables d'environnement `PYTHONDONTWRITEBYTECODE` et `PYTHONUNBUFFERED` sont définies pour éviter la création de fichiers `.pyc` et pour forcer Python à ne pas mettre en tampon ses sorties, ce qui est utile pour les logs dans un conteneur.
+
+3. **Installation des dépendances système**  
+   Nous installons les dépendances nécessaires pour le bon fonctionnement des bibliothèques Python suivantes : `requests`, `Flask`, `flask_bcrypt` et SQLite. Ces bibliothèques requièrent des outils de développement comme `gcc`, `musl-dev`, `libffi-dev`, `openssl-dev` et `sqlite-dev`.
+
+4. **Installation des dépendances Python**  
+   Le fichier `requirements.txt` est copié dans le conteneur, et les dépendances Python spécifiées sont installées avec `pip` à l'aide de la commande `RUN pip install --no-cache-dir -r requirements.txt`.
+
+5. **Copie du code source**  
+   Une fois les dépendances installées, l'intégralité du code source du projet est copiée dans le conteneur.
+
+6. **Exposition du port**  
+   Le conteneur expose le port 5000, ce qui permet d'accéder à l'application Flask via ce port.
+
+7. **Démarrage de l'application**  
+   La commande `CMD` lance l'application Flask avec `python app.py` lorsque le conteneur démarre.
+
+## requirements.txt
+
+Le fichier `requirements.txt` contient les dépendances Python nécessaires pour l'exécution de l'application :
+
+- `requests` : Une bibliothèque HTTP pour effectuer des requêtes vers des API externes.
+- `flask` : Un framework web léger pour créer des applications web.
+- `flask_bcrypt` : Une extension Flask pour intégrer le hachage sécurisé des mots de passe.
+
+## Lancement du projet avec Docker
+
+1. **Construire l'image Docker :**
+
+  dans le bash pour creer l'image
+   docker build -t bettheweather:v3 .
+  et pour la lancer
+   docker run -p 5000:5000 bettheweather:v3
+
+L'utilisation de Docker simplifie le déploiement et l'exécution du projet dans un environnement contrôlé, garantissant que l'application fonctionne de manière cohérente sur toutes les machines.
 
