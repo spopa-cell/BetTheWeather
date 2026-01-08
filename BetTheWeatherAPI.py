@@ -50,7 +50,7 @@ def verifier_paris():
         if (rainy and status == 1) or (not rainy and status == 2):
             gain = int(valeur) * 2
             new_money = current_money + gain
-            c.execute("UPDATE users SET credit = ? WHERE id = ?", (new_money, user_id))
+            c.execute("UPDATE users SET montant = ? WHERE id = ?", (new_money, user_id))
 
         # Supprimer le pari traité
         c.execute("DELETE FROM paris WHERE id = ?", (pid,))
